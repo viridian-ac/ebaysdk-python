@@ -51,9 +51,11 @@ class Config(object):
             return self
 
         # check other directories
-        dirs = ['.', os.path.expanduser('~'), '/etc']
+        dirs: list = ['.','..', os.path.expanduser('~'), '/etc']
         for mydir in dirs:
+            print(mydir)
             myfile = "%s/%s" % (mydir, self.config_file)
+            print(myfile)
 
             if os.path.exists(myfile):
                 self.config_file_used = myfile
