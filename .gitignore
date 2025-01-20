@@ -15,3 +15,5 @@ ebaysdk.egg-info/
 .venv*
 \.virtualenvs
 
+Welcome to the eBay Developers Program\!.eml
+ebay.yaml
