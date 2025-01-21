@@ -8,6 +8,7 @@ api.sandbox.ebay.com:
     devid: ead650c2-136b-4ebe-9d7a-3213f8c07bfd
     token: ENTER_YOUR_TOKEN_HERE
 
+
 # Trading API - https://www.x.com/developers/ebay/products/trading-api
 api.ebay.com:
     compatability: 719
