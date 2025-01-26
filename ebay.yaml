@@ -1,26 +1,2 @@
-name: ebay_api_config
 
-# Trading API Sandbox - https://www.x.com/developers/ebay/products/trading-api
-api.sandbox.ebay.com:
-    compatability: 719
-    appid: johannwe-test-SBX-e6628eb6f-5aa814cb
-    certid: SBX-66290d1f9388-d552-41b3-92f6-035e
-    devid: ead650c2-136b-4ebe-9d7a-3213f8c07bfd
-    token: ENTER_YOUR_TOKEN_HERE
-
-# Trading API - https://www.x.com/developers/ebay/products/trading-api
-api.ebay.com:
-    compatability: 719
-    appid: johannwe-test-SBX-e6628eb6f-5aa814cb
-    certid: SBX-66290d1f9388-d552-41b3-92f6-035e
-    devid: ead650c2-136b-4ebe-9d7a-3213f8c07bfd
-    token: ENTER_YOUR_TOKEN_HERE
-
-# Finding API - https://www.x.com/developers/ebay/products/finding-api
-svcs.ebay.com:
-    appid: johannwe-test-SBX-e6628eb6f-5aa814cb
-
-# Shopping API - https://www.x.com/developers/ebay/products/shopping-api
-open.api.ebay.com:
-    appid: johannwe-test-SBX-e6628eb6f-5aa814cb
 
