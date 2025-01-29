@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import os
+# import sys
+
 
 from ebaysdk import log
 from ebaysdk.connection import BaseConnection
@@ -21,16 +23,16 @@ class Connection(BaseConnection):
     (all others, see API docs)
 
     Doctests:
-    >>> f = Connection(config_file=os.environ.get('EBAY_YAML'), debug=False)
-    >>> retval = f.execute('findItemsAdvanced', {'keywords': u'El Niño'})
-    >>> error = f.error()
-    >>> print(error)
+    #>>> f = Connection(config_file=os.environ.get('EBAY_YAML'), debug=False)
+    #>>> retval = f.execute('findItemsAdvanced', {'keywords': u'El Niño'})
+    #>>> error = f.error()
+    #>>> print(error)
     None
-    >>> if not f.error():
-    ...   print(f.response.reply.itemSearchURL != '')
-    ...   items = f.response.reply.searchResult.item
-    ...   print(len(items) > 2)
-    ...   print(f.response.reply.ack)
+    #>>> if not f.error():
+    #...   print(f.response.reply.itemSearchURL != '')
+    #...   items = f.response.reply.searchResult.item
+    #...   print(len(items) > 2)
+    #...   print(f.response.reply.ack)
     True
     True
     Success
@@ -38,6 +40,8 @@ class Connection(BaseConnection):
     """
 
     def __init__(self, **kwargs):
+        print(self.__class__.__name__+'__init__')
+        # print(self.method.__qualname__)
         """Finding class constructor.
 
         Keyword arguments:

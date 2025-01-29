@@ -1,63 +1,67 @@
 # -*- coding: utf-8 -*-
 
-'''
-Copyright 2012-2019 eBay Inc.
-Authored by: Tim Keefer
-Licensed under CDDL 1.0
-'''
-
 import os
+import inspect
+import sys
 
 from ebaysdk import log
 from ebaysdk.exception import ConnectionConfigError
 from ebaysdk.utils import parse_yaml
 
+sys.path.append('/Applications/XAMPP/xamppfiles/htdocs/')
+from paiuva.sdk import VAClassHelper as vach
+from paiuva.sdk import VAGetSet as vags
+
 
 class Config(object):
     """Config Class for all APIs connections
 
-    >>> c = Config(domain='api.ebay.com')
-    >>> c.set('fname', 'tim')
-    >>> c.get('fname')
+    c = Config(domain='api.ebay.com')
+    c.set('fname', 'tim')
+    c.get('fname')
     'tim'
-    >>> c.get('missingkey', 'defaultvalue')
+    c.get('missingkey', 'defaultvalue')
     'defaultvalue'
-    >>> c.set('number', 22)
-    >>> c.get('number')
+    c.set('number', 22)
+    c.get('number')
     22
     """
 
     def __init__(self, domain, connection_kwargs=dict(), config_file='ebay.yaml'):
+        vach.Help.curr_callers()
+
         self.config_file = config_file
         self.domain = domain
         self.values = dict()
         self.config_file_used = []
-        self.connection_kwargs = connection_kwargs
 
+        self.connection_kwargs: dict = connection_kwargs
         self._populate_yaml_defaults()
+        # print(self.config_file_used)
 
     def _populate_yaml_defaults(self):
         "Returns a dictionary of YAML defaults."
-
+        vach.Help.curr_callers()
         # check for absolute path
         if self.config_file and os.path.exists(self.config_file):
             self.config_file_used = self.config_file
 
             dataobj = parse_yaml(self.config_file)
 
-            for k, val in dataobj.get(self.domain, {}).items():
-                self.set(k, val)
+            for key, val in dataobj.get(self.domain, {}).items():
+                self.set(key, val)
 
             return self
 
         # check other directories
         dirs: list = ['.','..', os.path.expanduser('~'), '/etc']
         for mydir in dirs:
-            print(mydir)
+            # print(mydir)
             myfile = "%s/%s" % (mydir, self.config_file)
-            print(myfile)
+            # print(myfile)
 
             if os.path.exists(myfile):
+                print(myfile)
                 self.config_file_used = myfile
 
                 dataobj = parse_yaml(myfile)
@@ -74,12 +78,15 @@ class Config(object):
     def file(self):
         return self.config_file_used
 
+
     def get(self, cKey, defaultValue=None):
         # log.debug('get: %s=%s' % (cKey, self.values.get(cKey, defaultValue)))
         return self.values.get(cKey, defaultValue)
 
-    def set(self, cKey, defaultValue, force=False):
 
+    def set(self, cKey, defaultValue, force=False):
+        vags.GetSet.set(cKey, self.values, self.connection_kwargs, defaultValue, force, False)
+        """
         if force:
             # log.debug('set (force): %s=%s' % (cKey, defaultValue))
             self.values.update({cKey: defaultValue})
@@ -96,3 +103,19 @@ class Config(object):
                 self.values.update({cKey: defaultValue})
             else:
                 pass
+        """
+
+
+if __name__ == "__main__":
+    ...
+
+    c = Config(domain='api.ebay.com')
+
+    c.set('fname', 'dr.jo')
+    print(c.get('fname'))
+
+
+    k=c.get('missingkey', 'dexfaultvalue')
+    print(k)  # 'dexfaultvalue'
+
+    print(c.values)

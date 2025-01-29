@@ -19,23 +19,30 @@ from ebaysdk.exception import ConnectionError
 
 
 def init_options():
+
     usage = "usage: %prog [options]"
     parser = OptionParser(usage=usage)
 
-    parser.add_option("-d", "--debug",
-                      action="store_true", dest="debug", default=False,
-                      help="Enabled debugging [default: %default]")
-    parser.add_option("-y", "--yaml",
-                      dest="yaml", default='ebay.yaml',
-                      help="Specifies the name of the YAML defaults file. [default: %default]")
-    parser.add_option("-a", "--appid",
-                      dest="appid", default=None,
-                      help="Specifies the eBay application id to use.")
-    parser.add_option("-n", "--domain",
-                      dest="domain", default='svcs.ebay.com',
-                      help="Specifies the eBay domain to use (e.g. svcs.sandbox.ebay.com).")
+    # Debug option
+    parser.add_option("-d", "--debug", action="store_true",
+                      help="Enable debugging [default: %(default)s]", default=False)
 
+    # YAML file option
+    parser.add_option("-y", "--yaml", type=str, default='ebay.yaml',
+                      help="Specifies the name of the YAML defaults file [default: %(default)s]")
+
+    # App ID option
+    parser.add_option("-a", "--appid", type=str, default=None,
+                      help="Specifies the eBay application ID to use")
+
+    # Domain option
+    parser.add_option("-n", "--domain", type=str, default='svcs.ebay.com',
+                      help="Specifies the eBay domain to use (e.g., svcs.sandbox.ebay.com) [default: %(default)s]")
+
+    # Parse arguments
     (opts, args) = parser.parse_args()
+    # print(opts)  # {'debug': False, 'yaml': 'ebay.yaml', 'appid': None, 'domain': 'svcs.ebay.com'}
+    print(args)  # []
     return opts, args
 
 

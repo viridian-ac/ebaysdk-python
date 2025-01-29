@@ -1,10 +1,5 @@
 # -*- coding: utf-8 -*-
 
-'''
-Copyright 2012-2019 eBay Inc.
-Authored by: Tim Keefer
-Licensed under CDDL 1.0
-'''
 
 from ebaysdk import log
 
@@ -109,7 +104,7 @@ class BaseConnection(object):
 
     def execute(self, verb, data=None, list_nodes=[], verb_attrs=None, files=None):
         "Executes the HTTP request."
-        log.debug('execute: verb=%s data=%s' % (verb, data))
+        # log.debug('execute: verb=%s data=%s' % (verb, data))
 
         self._reset()
 
@@ -126,7 +121,7 @@ class BaseConnection(object):
             self.process_response()
             self.error_check()
 
-        log.debug('total time=%s' % (time.time() - self._time))
+        # log.debug('total time=%s' % (time.time() - self._time))
 
         return self.response
 
@@ -219,7 +214,7 @@ class BaseConnection(object):
         estr = self.error()
 
         if estr and self.config.get('errors', True):
-            log.error(estr)
+            # log.error(estr)
             raise ConnectionError(estr, self.response)
 
     def response_codes(self):

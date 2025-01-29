@@ -1,16 +1,10 @@
 # -*- coding: utf-8 -*-
 
-'''
-Copyright 2012-2019 eBay Inc.
-Authored by: Tim Keefer
-Licensed under CDDL 1.0
-'''
 
-
-class EbaySDKError(Exception):
+class EbayError(Exception):
 
     def __init__(self, msg, response=None):
-        super(EbaySDKError, self).__init__(u'%s' % msg)
+        super(EbayError, self).__init__(u'%s' % msg)
         self.message = u'%s' % msg
         self.response = response
 
@@ -18,21 +12,21 @@ class EbaySDKError(Exception):
         return repr(self.message)
 
 
-class ConnectionError(EbaySDKError):
+class ConnectionError(EbayError):
     pass
 
 
-class ConnectionConfigError(EbaySDKError):
+class ConnectionConfigError(EbayError):
     pass
 
 
-class ConnectionResponseError(EbaySDKError):
+class ConnectionResponseError(EbayError):
     pass
 
 
-class RequestPaginationError(EbaySDKError):
+class RequestPaginationError(EbayError):
     pass
 
 
-class PaginationLimit(EbaySDKError):
+class PaginationLimit(EbayError):
     pass
