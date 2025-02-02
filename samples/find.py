@@ -3,10 +3,12 @@ import os
 import sys
 
 from ebaysdk.finding import Connection
-from ebaysdk.exception import ConnectionError
+# from ebaysdk.exception import ConnectionError
 
 sys.path.append('/Applications/XAMPP/xamppfiles/htdocs/')
 from paiuva.sdk import VAClassHelper as vach
+from paiuva.sdk import VAEbayError as ee
+
 
 class Find:
 
@@ -15,6 +17,7 @@ class Find:
 
     def __init__(self, domain="svcs.sandbox.ebay.com"):
         vach.Help.curr_callers()
+
 
 
         self.conn = Connection(

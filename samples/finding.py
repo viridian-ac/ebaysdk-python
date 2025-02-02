@@ -9,13 +9,15 @@ import os
 import sys
 from optparse import OptionParser
 
-sys.path.insert(0, '%s/../' % os.path.dirname(__file__))
+
+sys.path.append('/Applications/XAMPP/xamppfiles/htdocs/')
+from paiuva.sdk import VAEbayError as ee
 
 from common import dump
 
 import ebaysdk
 from ebaysdk.finding import Connection as finding
-from ebaysdk.exception import ConnectionError
+# from ebaysdk.exception import ConnectionError
 
 
 def init_options():

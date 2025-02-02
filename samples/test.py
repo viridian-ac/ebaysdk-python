@@ -1,9 +1,18 @@
 import datetime
-from ebaysdk.exception import ConnectionError
+import os
+import sys
+from pathlib import Path
+
+# from ebaysdk.exception import ConnectionError
 from ebaysdk.finding import Connection
 
+
+sys.path.append('/Applications/XAMPP/xamppfiles/htdocs/')
+from paiuva.sdk import VAEbayError as ee
+
+
 try:
-    api = Connection(appid='YOUR_APPID_HERE', config_file='ebay.yaml')
+    api = Connection(appid='johannwe-test-SBX-e6628eb6f-5aa814cb', config_file='ebay.yaml')
 
     response = api.execute('findItemsAdvanced', {'keywords': 'legos'})
 
@@ -15,6 +24,6 @@ try:
     assert(type(item.listingInfo.endTime) == datetime.datetime)
     assert(type(response.dict()) == dict)
 
-except ConnectionError as e:
+except ee.ConnectionError as e:
     print(e)
     print(e.response.dict())

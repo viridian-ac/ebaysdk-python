@@ -5,27 +5,16 @@ import inspect
 import sys
 
 from ebaysdk import log
-from ebaysdk.exception import ConnectionConfigError
+# from ebaysdk.exception import ConnectionConfigError
 from ebaysdk.utils import parse_yaml
 
 sys.path.append('/Applications/XAMPP/xamppfiles/htdocs/')
 from paiuva.sdk import VAClassHelper as vach
 from paiuva.sdk import VAGetSet as vags
+from paiuva.sdk import VAEbayError as ee
 
 
 class Config(object):
-    """Config Class for all APIs connections
-
-    c = Config(domain='api.ebay.com')
-    c.set('fname', 'tim')
-    c.get('fname')
-    'tim'
-    c.get('missingkey', 'defaultvalue')
-    'defaultvalue'
-    c.set('number', 22)
-    c.get('number')
-    22
-    """
 
     def __init__(self, domain, connection_kwargs=dict(), config_file='ebay.yaml'):
         vach.Help.curr_callers()
@@ -34,7 +23,6 @@ class Config(object):
         self.domain = domain
         self.values = dict()
         self.config_file_used = []
-
         self.connection_kwargs: dict = connection_kwargs
         self._populate_yaml_defaults()
         # print(self.config_file_used)
@@ -72,7 +60,7 @@ class Config(object):
                 return self
 
         if self.config_file:
-            raise ConnectionConfigError(
+            raise ee.ConnectionConfigError(
                 'config file %s not found. Set config_file=None for use without YAML config.' % self.config_file)
 
     def file(self):

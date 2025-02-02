@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+import sys
 
 from ebaysdk import log
 
@@ -7,6 +7,7 @@ import re
 import time
 import uuid
 import webbrowser
+# import BeautifulSoup
 
 from requests import Request, Session
 from requests.adapters import HTTPAdapter
@@ -18,7 +19,11 @@ from ebaysdk import set_stream_logger, UserAgent
 from ebaysdk.utils import getNodeText as getNodeTextUtils, smart_encode, smart_decode
 from ebaysdk.utils import getValue, smart_encode_request_data
 from ebaysdk.response import Response
-from ebaysdk.exception import ConnectionError, ConnectionResponseError
+
+sys.path.append('/Applications/XAMPP/xamppfiles/htdocs/')
+from paiuva.sdk import VAEbayError as ee
+
+# from ebaysdk.exception import ConnectionError, ConnectionResponseError
 
 HTTP_SSL = {
     False: 'http',
@@ -32,6 +37,8 @@ class BaseConnection(object):
     def __init__(self, debug=False, method='GET',
                  proxy_host=None, timeout=20, proxy_port=80,
                  parallel=None, escape_xml=False, **kwargs):
+
+        vach.Help.curr_callers()
 
         if debug:
             set_stream_logger()
@@ -215,7 +222,7 @@ class BaseConnection(object):
 
         if estr and self.config.get('errors', True):
             # log.error(estr)
-            raise ConnectionError(estr, self.response)
+            raise ee.ConnectionError(estr, self.response)
 
     def response_codes(self):
         return self._resp_codes
@@ -277,7 +284,7 @@ class BaseConnection(object):
                     self.verb + 'Response')[0]
 
             except ExpatError as e:
-                raise ConnectionResponseError(
+                raise ee.ConnectionResponseError(
                     "Invalid Verb: %s (%s)" % (self.verb, e), self.response)
             except IndexError:
                 self._response_dom = dom

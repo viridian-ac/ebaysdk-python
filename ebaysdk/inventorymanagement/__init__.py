@@ -9,10 +9,11 @@ import os
 
 from ebaysdk import log
 from ebaysdk.connection import BaseConnection
-from ebaysdk.exception import ConnectionError
+# from ebaysdk.exception import ConnectionError
 from ebaysdk.config import Config
 from ebaysdk.utils import dict2xml, smart_encode
-
+sys.path.append('/Applications/XAMPP/xamppfiles/htdocs/')
+from paiuva.sdk import VAEbayError as ee
 
 class Connection(BaseConnection):
     """Connection class for the Inventory Management service
@@ -53,7 +54,7 @@ class Connection(BaseConnection):
     ...         'Hours': [{'Day': {'DayOfWeek': 1, 'Interval': {'Open': '08:00:00', 'Close': '10:00:00'}}}]
     ...     })
     ...     print(f.response.reply.LocationID.lower())
-    ... except ConnectionError as e:
+    ... except ee.ConnectionError as e:
     ...     print(f.error()) # doctest: +SKIP
     ebaysdk_test
 
@@ -64,7 +65,7 @@ class Connection(BaseConnection):
     ...     {"Availability": "IN_STOCK", "LocationID": "ebaysdk_test", "Quantity": 10}
     ...     ]}})
     ...     print(f.response.reply.SKU.lower())
-    ... except ConnectionError as e:
+    ... except ee.ConnectionError as e:
     ...     print(f.error()) # doctest: +SKIP
     sku_test
 
@@ -74,7 +75,7 @@ class Connection(BaseConnection):
     ...     f = Connection(config_file=os.environ.get('EBAY_YAML'), debug=False)
     ...     retval = f.execute('DeleteInventory', {"SKU": "SKU_TEST", "Confirm": 'true'})
     ...     print(f.response.reply.SKU.lower())
-    ... except ConnectionError as e:
+    ... except ee.ConnectionError as e:
     ...     print(f.error()) # doctest: +SKIP
     sku_test
 
@@ -84,7 +85,7 @@ class Connection(BaseConnection):
     ...     f = Connection(config_file=os.environ.get('EBAY_YAML'), debug=False)
     ...     retval = f.execute('DeleteInventoryLocation', {"LocationID": "ebaysdk_test"})
     ...     print(f.response.reply.LocationID.lower())
-    ... except ConnectionError as e:
+    ... except ee.ConnectionError as e:
     ...     print(f.error()) # doctest: +SKIP
     ebaysdk_test
 
@@ -93,7 +94,7 @@ class Connection(BaseConnection):
     >>> try:
     ...     f = Connection(token='WRONG TOKEN', config_file=os.environ.get('EBAY_YAML'), debug=False, errors=True)
     ...     retval = f.execute('DeleteInventoryLocation', {"LocationID": "ebaysdk_test"})
-    ... except ConnectionError as e:
+    ... except ee.ConnectionError as e:
     ...     print(f.error()) # doctest: +SKIP
     DeleteInventoryLocation: Bad Request, Class: RequestError, Severity: Error, Code: 503, Authentication: Invalid user token Authentication: Invalid user token
 

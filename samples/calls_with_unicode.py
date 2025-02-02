@@ -15,7 +15,10 @@ from common import dump
 
 import ebaysdk
 from ebaysdk.finding import Connection as finding
-from ebaysdk.exception import ConnectionError
+# from ebaysdk.exception import ConnectionError
+
+sys.path.append('/Applications/XAMPP/xamppfiles/htdocs/')
+from paiuva.sdk import VAEbayError as ee
 
 def init_options():
     usage = "usage: %prog [options]"
@@ -59,7 +62,7 @@ def run(opts):
         response = api.execute('findItemsAdvanced', api_request)
 
         dump(api)
-    except ConnectionError as e:
+    except ee.ConnectionError as e:
         print(e)
         print(e.response.dict())
 
@@ -82,7 +85,7 @@ def run_unicode(opts):
 
         dump(api)
 
-    except ConnectionError as e:
+    except ee.ConnectionError as e:
         print(e)
         print(e.response.dict())
 

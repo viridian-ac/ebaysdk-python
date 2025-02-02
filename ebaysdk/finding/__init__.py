@@ -1,14 +1,17 @@
 # -*- coding: utf-8 -*-
 
 import os
-# import sys
-
+import sys
 
 from ebaysdk import log
 from ebaysdk.connection import BaseConnection
-from ebaysdk.exception import RequestPaginationError, PaginationLimit
+# from ebaysdk.exception import RequestPaginationError, PaginationLimit
 from ebaysdk.config import Config
 from ebaysdk.utils import dict2xml
+
+
+sys.path.append('/Applications/XAMPP/xamppfiles/htdocs/')
+from paiuva.sdk import VAEbayError as ee
 
 
 class Connection(BaseConnection):
@@ -286,7 +289,7 @@ class Connection(BaseConnection):
 
     def next_page(self):
         if type(self._request_dict) is not dict:
-            raise RequestPaginationError(
+            raise ee.RequestPaginationError(
                 "request data is not of type dict", self.response)
 
         epp = self._request_dict.get(
@@ -294,7 +297,7 @@ class Connection(BaseConnection):
         num = int(self.response.reply.paginationOutput.pageNumber)
 
         if num >= int(self.response.reply.paginationOutput.totalPages):
-            raise PaginationLimit("no more pages to process", self.response)
+            raise ee.PaginationLimit("no more pages to process", self.response)
             return None
 
         self._request_dict['paginationInput'] = {}
